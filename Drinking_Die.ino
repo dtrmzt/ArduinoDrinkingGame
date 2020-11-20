@@ -1,6 +1,8 @@
+#include <Servo.h>
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+Servo servo;
 
 const int button = 2;
 
@@ -27,6 +29,9 @@ void setup() {
 
   lcd.begin(16, 2);
   
+  servo.attach(5);
+  servo.write(0);
+  
   currentButtonState = digitalRead(button);
   
   lcd.print("Kocka sudbine");
@@ -40,6 +45,12 @@ void loop() {
 
   if(lastButtonState == HIGH && currentButtonState == LOW) {
 
+    lcd.clear();
+
+    servo.write(100);
+    delay(700);
+    servo.write(0);
+
     choice = random(2);
     lcd.clear();
     lcd.setCursor(0, 0);
@@ -47,6 +58,7 @@ void loop() {
     lcd.setCursor(0, 1);
 
     printChoice(choice);
+
        
   }
 }
