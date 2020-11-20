@@ -1,3 +1,5 @@
+//Viktor Goleš 20.11.2020.
+
 #include <Servo.h>
 #include <LiquidCrystal.h>
 
