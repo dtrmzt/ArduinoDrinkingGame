@@ -3,25 +3,21 @@
 #include <Servo.h>
 #include <LiquidCrystal.h>
 
+#define button 2
+
+
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 Servo servo;
 
-const int button = 2;
-
-int lastButtonState;
-int currentButtonState;
-
-int choice;
-
 void printChoice(int choice)
 {
-  if(choice == 1) {
+  if(choice) {
     Serial.println("CUGAJ");
     lcd.print("CUGAS");
   } else {
      Serial.println("DIJELIS");
      lcd.print("DIJELIS");
-      }
+  }
 }
 
 void setup() {
@@ -41,8 +37,8 @@ void setup() {
 
 void loop() {
   
-  lastButtonState = currentButtonState;
-  currentButtonState = digitalRead(button);
+  int lastButtonState = currentButtonState;
+  int currentButtonState = digitalRead(button);
  
 
   if(lastButtonState == HIGH && currentButtonState == LOW) {
@@ -52,15 +48,13 @@ void loop() {
     servo.write(100);
     delay(700);
     servo.write(0);
-
-    choice = random(2);
+    
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Kocka zeli da:");
     lcd.setCursor(0, 1);
 
-    printChoice(choice);
-
+    printChoice(random(2));
        
   }
 }
